@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="cryptorio-forms text-center pt-5 pb-5">
+                <div class="logo">
+                    <img src="{% static 'images/logo.png' %}" alt="logo-image">
+                </div>
+                <h3 class="p-4">Recover Password</h3>
+                <div class="cryptorio-main-form">
+                    <form action="" class="text-left">
+                        <label for="email">Email</label>
+                        <input type="text" id="email" name="email" placeholder="Your email/cellphone">
+                        <input type="submit" value="Recover Password" class="crypt-button-red-full">
+                    </form>
+                    <p class="float-left"><a href="login">Log In</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+{% endblock content %}

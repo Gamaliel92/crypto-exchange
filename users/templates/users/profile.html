@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container bg-light"></a>
+	<div class="row">
+		<div class="col-md-9 bg-info"> 
+		    <div class="card">
+		        <div class="card-body">
+		            <div class="row">
+		                <div class="col-md-12">
+		                    <h4>{{request.user.get_full_name}}</h4>
+		                    <hr>
+		                </div>
+		            </div>
+		            <div class="row">
+		                <div class="col-md-12">
+                        <form method="POST" enctype="multipart/form-data">
+                          {% csrf_token %}
+                              <div class="form-group row">
+                                <label for="name" class="col-4 col-form-label">First Name<i style="color:red;">*</i></label> 
+                                <div class="col-8">
+                                  <input id="name" name="first_name" placeholder="First Name" class="form-control here" type="text" value="{{ user.firstname}}">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="lastname" class="col-4 col-form-label">Last Name<i style="color:red;">*</i></label> 
+                                <div class="col-8">
+                                  <input id="lastname" name="last_name" placeholder="Last Name" class="form-control here" type="text" value="{{ user.lastname }}">
+                                </div>
+                              </div>
+                              {% if not user_profile %}
+                              <div class="form-group row">
+                                <label for="text" class="col-4 col-form-label">Country<i style="color:red;">*</i></label> 
+                                <div class="col-8">
+                                    <select name="country" id="" class="form-control">
+                                        <option value="NIGERIA">Nigeria</option>
+                                        <option value="GHANA">Canada</option>
+                                        <option value="TOGO">Ghana</option>
+                                        <option value="CANADA">Togo</option>
+                                        <option value="SOUTH_AFRICA">South Africa</option>
+                                    </select>
+                                </div>
+                              </div>
+                              {% endif %}
+                              {% if not user_profile %}
+                              <div class="form-group row">
+                                <label for="text" class="col-4 col-form-label">State<i style="color:red;">*</i></label> 
+                                <div class="col-8">
+                                    <select name="state" id="" class="form-control">
+                                        <option value="ABIA">Abia</option>
+                                        <option value="ADAMAWA">Adamawa</option>
+                                        <option value="LAGOS">Lagos</option>
+                                        <option value="EDO">Edo</option>
+                                        <option value="ONDO">Ondo</option>
+                                    </select>
+                                </div>
+                              </div>
+                              {% endif %}
+                              {% if not user_profile %}
+                              <div class="form-group row">
+                                <label for="text" class="col-4 col-form-label">City<i style="color:red;">*</i></label> 
+                                <div class="col-8">
+                                    <select name="" id="" class="form-control">
+                                        <option value=""></option>
+                                        <option value=""></option>
+                                        <option value=""></option>
+                                        <option value=""></option>
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                              </div>
+                              {% endif %}
+                              {% if not user_profile %}
+                              <div class="form-group row">
+                                <label for="email" class="col-4 col-form-label">Email<i style="color:red;">*</i></label> 
+                                <div class="col-8">
+                                  <input  value="" id="email" name="email" placeholder="Email" class="form-control here" required="required" type="text" value="{{ user.email }}">
+                                </div>
+                              </div>
+                              {% endif %}
+                              {% if not user_profile %}
+                              <div class="form-group row">
+                                <label for="email" class="col-4 col-form-label">Birth Date<i style="color:red;">*</i></label> 
+                                <div class="col-8">
+                                  <input type="date" name="dob" id="date" placeholder="Birth Date" class="form-control here" required="required" type="text" value="{{ user.date}}">
+                                </div>
+                              </div>
+                              {% endif %}
+                              <div class="form-group row">
+                                <label for="email" class="col-4 col-form-label">Phone<i style="color:red;">*</i></label> 
+                                <div class="col-8">
+                                  <input  value="" id="phone" name="phone" placeholder="Phone" class="form-control here" required="required" type="text" value="{{ user.phone }}">
+                                </div>
+                              </div>
+                              {% if not user_profile %}
+                              <div class="form-group row">
+                                <label for="email" class="col-4 col-form-label">Father's Name<i style="color:red;">*</i></label> 
+                                <div class="col-8">
+                                  <input  value="" id="name" name="father" placeholder="Father's Name" class="form-control here" required="required" type="text">
+                                </div>
+                              </div>
+                              {% endif %}
+                              {% if not user_profile %}
+                              <div class="form-group row">
+                                <label for="email" class="col-4 col-form-label">Mother's Name<i style="color:red;">*</i></label> 
+                                <div class="col-8">
+                                  <input  value="" id="name" name="mother" placeholder="Mother's Name" class="form-control here" required="required" type="text" value="">
+                                </div>
+                              </div>
+                              {% endif %}
+                              {% if not user_profile %}
+                              <div class="form-group row">
+                                <label class="col-4 col-form-label">Permanent Address<i style="color:red;">*</i></label> 
+                                <div class="col-8">
+                                  <input  value="" id="Address" name="address1" placeholder="Address 1" class="form-control here" required="required" type="text" value="">
+                                </div>
+                              </div>
+                              {% endif %}
+                              {% if not user_profile %}
+                              <div class="form-group row">
+                                <label for="email" class="col-4 col-form-label">Address(Optional)</label> 
+                                <div class="col-8">
+                                  <input  value="" id="Address" name="address2" placeholder="Address 2 (Optional)" class="form-control here" required="required" type="text" value="">
+                                </div>
+                              </div>
+                              {% endif %}
+                              {% if not user_profile %}
+                              <div class="form-group row">
+                                <label for="text" class="col-4 col-form-label">Gender<i style="color:red;">*</i></label> 
+                                <div class="col-8">
+                                    <select name="gender" id="" class="form-control">
+                                        <option value="MALE">Male</option>
+                                        <option value="FEMALE">Female</option>
+                                        <option value="OTHERS">Others</option>
+                                    </select>
+                                </div>
+                              </div>
+                              {% endif %}
+                              {% if not user_profile %}
+                              <div class="form-group row">
+                                <label for="text" class="col-4 col-form-label">Marital Status<i style="color:red;">*</i></label> 
+                                <div class="col-8">
+                                    <select name="status" id="" class="form-control">
+                                        <option value="SINGLE">Single</option>
+                                        <option value="MARRIED">Married</option>
+                                        <option value="DIVORCE">Divorce</option>
+                                    </select>
+                                </div>
+                              </div>
+                              {% endif %}
+                              <!-- <div class="form-group row">
+                                <label for="newpass" class="col-4 col-form-label">New Password</label> 
+                                <div class="col-8">
+                                  <input id="newpass" name="newpass" placeholder="New Password" class="form-control here" type="text" value="">
+                                </div>
+                              </div>  -->
+                              <div class="form-group">
+                                <label class="col-md-4 control-label" for="Upload photo">Upload photo</label>
+                                <div class="col-md-4">
+                                  <input id="Upload photo" name="image" class="input-file form-control" type="file">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <div class="offset-4 col-8">
+                                  {% if user_profile %}
+                                  <button name="submit" type="submit" class="btn btn-primary">Update My Profile</button>
+                                  {% else %}
+                                  <button name="submit" type="submit" class="btn btn-success">Submit</button>
+                                  {% endif %}
+                                </div>
+                              </div>
+                            </form>
+		                </div>
+		            </div>
+		            
+		        </div>
+		    </div>
+		</div>
+	</div>
+</div>
+{% endblock content %}

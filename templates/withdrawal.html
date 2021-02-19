@@ -1,0 +1,252 @@
+{% extends  "base.html" %}
+{% load static %}
+{% block content %}
+<div class="crypt-side-menu crypt-left-sided crypt-floatable-menu bg-white">
+	<ul>
+		<li><a href=""><i class="pe-7s-graph1"></i> Dashboard</a></li>
+	</ul>
+	<hr>
+	<p>Market</p>
+	<ul>
+		<li><a href="{% url 'exchange' %}"><i class="pe-7s-way"></i> Exchange</a></li>
+	</ul>
+	<hr>
+	<p>Account</p>
+	<ul>
+		<li><a href="{% url 'profile' %}"><i class="pe-7s-user"></i> Profile</a></li>
+		<li><a href="{% url 'bitcoin_wallet' %}"><i class="pe-7s-wallet"></i> Wallet</a></li>
+		<li><a href=""><i class="pe-7s-cash"></i> Card</a></li>
+		<li><a href=""><i class="pe-7s-wristwatch"></i> History</a></li>
+		<li><a href=""><i class="pe-7s-settings"></i> Settings</a></li>
+		{% if user.is_authenticated %}
+			<li class="crypt-box-menu"><a href="{% url 'logout' %}" class="text-danger">Logout</a></li>
+		{% endif %}
+	</ul>
+</div>	
+<div class="container-full-width">
+	<div class="row sm-gutters">
+		<div class="col-xl-2 d-none d-xl-block">	
+		</div>
+		<div class="col-md-4 col-lg-4 col-xl-4">
+			<div class="p-2 mt-3" style="background-color: white;">
+				<!-- <div>Email: {{request.user}}</div>
+				<div>First Name:</div>
+				<div>Last Name:</div> -->
+				<div class="container d-flex justify-content-center bg-info">
+					<div class="card p-3 py-4">
+						{% if not profile %}
+						<div class="text-center p-5"> <img src="{% static 'images/default.jpg' %}" width="100" class="rounded-circle">
+							<h3 class="mt-2">{{ request.user }}</h3>
+							<div><h6 class="mt-3 p-2 border-primary border-bottom">Email: <small>{{ request.user }}</small></h6></div>
+							<!-- <div><h6 class="mt-4  border-primary border-bottom">Date Of Birth: <small></small></h6></div>
+							<div><h6 class="mt-4  border-primary border-bottom">Phone: <small></small></h6></div>
+							<div><h6 class="mt-4  border-primary border-bottom">Country: <small></small></h6></div>	
+							<div><h6 class="mt-4  border-primary border-bottom">Gender: <small></small></h6></div>	 -->
+						</div>
+						{% else %}
+						<div class="text-center p-5"> <img src="{% if profile.image %}{{ profile.image.url }}{% else %}{% static 'images/default.jpg' %}{% endif %}" width="100" class="rounded-circle" style="max-height: 100px; overflow: hidden;">
+							<h3 class="mt-2">{% if request.user.get_full_name %}{{ request.user.get_full_name }}{% else %}{{ request.user }}{% endif %}</h3>
+							<div><h6 class="mt-3 p-2 border-primary border-bottom">Email: <small>{{ request.user }}</small></h6></div>
+							<div><h6 class="mt-4  border-primary border-bottom">Date Of Birth: <small>{% if profile.date_of_birth %}{{ profile.date_of_birth }}{% else %}---{% endif %}</small></h6></div>
+							<div><h6 class="mt-4  border-primary border-bottom">Phone: <small>{% if profile.phone %}{{ profile.phone }}{% else %}---{% endif %}</small></h6></div>
+							<div><h6 class="mt-4  border-primary border-bottom">Country: <small>{% if profile.countries %}{{ profile.get_countries_display }}{% else %}---{% endif %}</small></h6></div>	
+							<div><h6 class="mt-4  border-primary border-bottom">Gender: <small>{% if profile.gender %}{{ profile.get_gender_display }}{% else %}---{% endif %}</small></h6></div>	
+						</div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-8 col-lg-8 col-xl-6">
+			<div class="crypt-dash-withdraw mt-3 d-block" id="bitcoin">
+				<div class="crypt-withdraw-heading">
+					<div class="row">
+						<div class="col-sm-4 col-md-3">
+							<p><b>1 BTC</b></p>
+							<p class="crypt-up"><b>$3,483.59 USD (0.28%) </b></p>
+						</div>
+					</div>
+				</div>
+				<div class="crypt-withdraw-body bg-white">
+					<div class="row">
+						<div class="col-md-3">
+						<div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+							<a 
+								class="nav-link active" 
+								id="v-pills-zilliqua-btc-deposit-tab" 
+								data-toggle="pill" 
+								href="#v-pills-zilliqua-btc-deposit" 
+								role="tab" 
+								aria-controls="v-pills-zilliqua-btc-deposit" 
+								aria-selected="true">
+							<form>
+								<script src="https://js.paystack.co/v1/inline.js"></script>
+								<button type="button" onclick="payWithPaystack()"><i class="pe-7s-bottom-arrow"></i> Deposit </button>
+								<!-- <i class="pe-7s-bottom-arrow"></i> Deposit -->
+							</form>
+							</a>
+							<!-- <form>
+								<script src="https://js.paystack.co/v1/inline.js"></script>
+								<button type="button" onclick="payWithPaystack()"> Deposit </button> 
+							 </form> -->
+							<script>
+								function payWithPaystack(){
+								var handler = PaystackPop.setup({
+									key: 'pk_test_ba8daaa8bff39fc53eed351ca3b851c9b8c6781d',
+									email: 'isiborgamaliel@gmail.com',
+									amount: 10000,
+									ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+									metadata: {
+										custom_fields: [
+										{
+											display_name: "Mobile Number",
+											variable_name: "mobile_number",
+											value: "+2347062275367"
+										}
+										]
+									},
+									callback: function(response){
+										alert('success. transaction ref is ' + response.reference);
+									},
+									onClose: function(){
+										alert('window closed');
+									}
+								});
+								handler.openIframe();
+								}
+							</script>
+
+
+							<a 
+								class="nav-link" 
+								id="v-pills-zilliqua-btc-withdrawal-tab" 
+								data-toggle="pill"
+								href="#v-pills-zilliqua-btc-withdrawal" 
+								role="tab" 
+								aria-controls="v-pills-zilliqua-btc-withdrawal" 
+								aria-selected="false">
+									<i class="pe-7s-up-arrow"></i> Withdraw
+							</a>
+
+							<a 
+								class="nav-link" 
+								id="v-pills-zilliqua-btc-history-tab" 
+								data-toggle="pill" 
+								href="#v-pills-zilliqua-btc-history" 
+								role="tab" 
+								aria-controls="v-pills-zilliqua-btc-history" 
+								aria-selected="false">
+									<i class="pe-7s-clock"></i> History
+							</a>
+
+							<a 
+								class="nav-link" 
+								id="v-pills-zilliqua-btc-buysell-tab" 
+								data-toggle="pill" 
+								href="#v-pills-zilliqua-btc-buysell" 
+								role="tab" 
+								aria-controls="v-pills-zilliqua-btc-buysell" 
+								aria-selected="false">
+									<i class="pe-7s-refresh-2"></i> Buy / Sell
+							</a>
+						</div>
+					</div>
+				<div class="col-md-9">
+						<div class="tab-content" id="v-pills-zilliqua-btc-tabContent">
+							  <div class="tab-pane fade show active" id="v-pills-zilliqua-btc-deposit" role="tabpanel" aria-labelledby="v-pills-zilliqua-btc-deposit-tab">
+								
+								<article class="card">
+									<div class="card-body p-5">
+									
+									<ul class="nav bg-light nav-pills rounded nav-fill mb-3" role="tablist">
+										<li class="nav-item">
+											<a class="nav-link active" data-toggle="pill" href="#nav-tab-card">
+											<i class="fa fa-credit-card"></i> Credit Card</a></li>
+										<li class="nav-item">
+											<a class="nav-link" data-toggle="pill" href="#nav-tab-paypal">
+											<i class="fab fa-paypal"></i>  Paypal</a></li>
+										<li class="nav-item">
+											<a class="nav-link" data-toggle="pill" href="#nav-tab-bank">
+											<i class="fa fa-university"></i>  Bank Transfer</a></li>
+									</ul>
+									
+									<div class="tab-content">
+									<div class="tab-pane fade show active" id="nav-tab-card">
+										<p class="alert alert-success">Some text success or error</p>
+										<form role="form">
+										<div class="form-group">
+											<label for="username">Full name (on the card)</label>
+											<input type="text" class="form-control" name="username" placeholder="" required="">
+										</div> <!-- form-group.// -->
+									
+										<div class="form-group">
+											<label for="cardNumber">Card number</label>
+											<div class="input-group">
+												<input type="text" class="form-control" name="cardNumber" placeholder="">
+												<div class="input-group-append">
+													<span class="input-group-text text-muted">
+														<i class="fab fa-cc-visa"></i>   <i class="fab fa-cc-amex"></i>   
+														<i class="fab fa-cc-mastercard"></i> 
+													</span>
+												</div>
+											</div>
+										</div> <!-- form-group.// -->
+									
+										<div class="row">
+											<div class="col-sm-8">
+												<div class="form-group">
+													<label><span class="hidden-xs">Expiration</span> </label>
+													<div class="input-group">
+														<input type="number" class="form-control" placeholder="MM" name="">
+														<input type="number" class="form-control" placeholder="YY" name="">
+													</div>
+												</div>
+											</div>
+											<div class="col-sm-4">
+												<div class="form-group">
+													<label data-toggle="tooltip" title="" data-original-title="3 digits code on back side of the card">CVV <i class="fa fa-question-circle"></i></label>
+													<input type="number" class="form-control" required="">
+												</div> <!-- form-group.// -->
+											</div>
+										</div> <!-- row.// -->
+										<button class="subscribe btn btn-primary btn-block" type="button"> Confirm  </button>
+										</form>
+									</div> <!-- tab-pane.// -->
+									<div class="tab-pane fade" id="nav-tab-paypal">
+									<p>Paypal is easiest way to pay online</p>
+									<p>
+									<button type="button" class="btn btn-primary"> <i class="fab fa-paypal"></i> Log in my Paypal </button>
+									</p>
+									<p><strong>Note:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+									tempor incididunt ut labore et dolore magna aliqua. </p>
+									</div>
+									<div class="tab-pane fade" id="nav-tab-bank">
+									<p>Bank accaunt details</p>
+									<dl class="param">
+									  <dt>BANK: </dt>
+									  <dd> THE WORLD BANK</dd>
+									</dl>
+									<dl class="param">
+									  <dt>Accaunt number: </dt>
+									  <dd> 12345678912345</dd>
+									</dl>
+									<dl class="param">
+									  <dt>IBAN: </dt>
+									  <dd> 123456789</dd>
+									</dl>
+									<p><strong>Note:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+									tempor incididunt ut labore et dolore magna aliqua. </p>
+									</div> <!-- tab-pane.// -->
+									</div> <!-- tab-content .// -->
+									
+									</div> <!-- card-body.// -->
+									</article> <!-- card.// -->
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}
+	

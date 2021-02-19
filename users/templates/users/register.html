@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="cryptorio-forms text-center pt-5 pb-5">
+                <div class="logo">
+                    <img src="{% static 'images/logoo.jpg' %}" alt="logo-image">
+                </div>
+                <h3 class="p-4">Register</h3>
+                <div class="cryptorio-main-form">
+                    <form action="" class="text-left" method="POST">
+                        {% csrf_token %}
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" placeholder="Your username">
+                        <label for="email">Email</label>
+                        <input type="text" id="email" name="email" placeholder="Your email/cellphone">
+                        <div style="color: red;">{{ user_error }}</div>
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password1" placeholder="6-20 letters and numbers">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" name="password2" placeholder="6-20 letters and numbers">
+                        <div style="color: red;">{{ password_error }}</div>
+                        <div class="my-1">
+                          <div class="custom-control custom-checkbox mr-sm-2">
+                            <input type="checkbox" class="custom-control-input" id="terms-agree" name="terms">
+                            <label class="custom-control-label" for="terms-agree">I agree to the terms of services</label>
+                            <div style="color: red;">{{ terms_error }}</div>
+                        </div>
+                        </div>
+                        <input type="submit" value="SignUp" class="crypt-button-red-full">
+                    </form>
+                    <p class="float-left"><a href="login">Log In</a></p>
+                    <p class="float-right"><a href="forgot">Recover Password</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+{% endblock content %}
